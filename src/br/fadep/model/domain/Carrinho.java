@@ -1,12 +1,12 @@
 package br.fadep.model.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -18,8 +18,7 @@ public class Carrinho {
 	
 	@OneToMany
 	private List<Jogo> jogos;
-	@ManyToOne
-	private Cliente cliente;
+	private Date data;
 	
 	public Long getId() {
 		return id;
@@ -36,12 +35,13 @@ public class Carrinho {
 	public void setJogos(List<Jogo> jogos) {
 		this.jogos = jogos;
 	}
-	
-	public Cliente getCliente() {
-		return cliente;
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}	
 }

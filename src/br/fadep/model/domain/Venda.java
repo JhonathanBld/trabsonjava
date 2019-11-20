@@ -2,6 +2,7 @@ package br.fadep.model.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class Venda {
 	@OneToOne
 	private Carrinho carrinho;
 	@OneToMany
-	private List<FormaPagamento> formaPagamento;
+	@Column(name="FORMA_PAGAMENTO")
+	private List<FormaPagamento> formasPagamento;
 	@OneToOne	
 	private Cliente cliente;
 	
@@ -39,12 +41,12 @@ public class Venda {
 		this.carrinho = carrinho;
 	}
 	
-	public List<FormaPagamento> getFormaPagamento() {
-		return formaPagamento;
+	public List<FormaPagamento> getFormasPagamento() {
+		return formasPagamento;
 	}
 	
-	public void setFormaPagamento(List<FormaPagamento> formaPagamento) {
-		this.formaPagamento = formaPagamento;
+	public void setFormasPagamento(List<FormaPagamento> formasPagamento) {
+		this.formasPagamento = formasPagamento;
 	}
 	
 	public Cliente getCliente() {
@@ -54,4 +56,5 @@ public class Venda {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}	
+	
 }
