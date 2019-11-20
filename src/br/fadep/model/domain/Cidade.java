@@ -35,6 +35,7 @@ public class Cidade {
 		this.nome = nome;
 	}
 	
+	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -42,6 +43,7 @@ public class Cidade {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+
 
 	public Long getCodigoIBGE() {
 		return codigoIBGE;
