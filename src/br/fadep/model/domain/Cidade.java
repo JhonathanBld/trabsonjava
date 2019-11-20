@@ -32,6 +32,7 @@ public class Cidade {
 	}
 	
 	public void setNome(String nome) {
+		System.out.println("PINTO GROSSO");
 		this.nome = nome;
 	}
 	
