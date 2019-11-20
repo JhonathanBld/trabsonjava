@@ -11,10 +11,10 @@ import br.fadep.model.domain.Carrinho;
 public class CarrinhoDAO {
 	public List<Carrinho> getAll() {
 		EntityManager em = JPAUtil.getEntityManager();
-		List<Carrinho> cidades = null;
+		List<Carrinho> carrinho = null;
 
 		try {
-			cidades = em.createQuery("select c from Carrinho c", Carrinho.class).getResultList();
+			carrinho = em.createQuery("select c from Carrinho c", Carrinho.class).getResultList();
 		} catch (RuntimeException ex) {
 
 			throw new DAOException("Erro ao recuperar todos as cidades do banco: " + ex.getMessage(),
@@ -24,7 +24,7 @@ public class CarrinhoDAO {
 			em.close();
 		}
 
-		return cidades;
+		return carrinho;
 	}
 
 	public Carrinho getById(long id) {
@@ -34,56 +34,54 @@ public class CarrinhoDAO {
 		try {
 			cidade = em.find(Carrinho.class, id);
 		} catch (RuntimeException ex) {
-			throw new DAOException("Erro ao buscar cidade por id no banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao buscar o carrinho por id no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 		} finally {
 			em.close();
 		}
 
 		if (cidade == null) {
-			throw new DAOException("Cidade de id " + id + " não existe.", ErrorCode.NOT_FOUND.getCode());
+			throw new DAOException("Carrinho de id " + id + " não existe.", ErrorCode.NOT_FOUND.getCode());
 		}
 
 		return cidade;
 	}
 
-	public Carrinho save(Carrinho cidade) {
+	public Carrinho save(Carrinho carrinho) {
 		EntityManager em = JPAUtil.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(cidade);
+			em.persist(carrinho);
 			em.getTransaction().commit();
 		} catch (RuntimeException ex) {
 
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao salvar cidade no banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao salvar o carrinho no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
-		return cidade;
+		return carrinho;
 	}
 
-	public Carrinho update(Carrinho cidade) {
+	public Carrinho update(Carrinho carrinho) {
 		EntityManager em = JPAUtil.getEntityManager();
 		Carrinho cidadeManaged = null;
-		if (cidade.getId() <= 0) {
+		if (carrinho.getId() <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
 		}
 		try {
+
 			em.getTransaction().begin();
-			em.getTransaction().begin();
-			cidadeManaged = em.find(Carrinho.class, cidade.getId());
-			cidadeManaged.setEstado(cidade.getEstado());
-			cidadeManaged.setCodigoIBGE(cidade.getCodigoIBGE());		
-			cidadeManaged.setNome(cidade.getNome());
-			cidadeManaged.setPopulacao(cidade.getPopulacao());
+			cidadeManaged = em.find(Carrinho.class, carrinho.getId());
+			cidadeManaged.setData(carrinho.getData());
+			cidadeManaged.setJogos(carrinho.getJogos());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Cidade informada para atualização não existe: " + ex.getMessage(),
+			throw new DAOException("Carrinho informado para atualização não existe: " + ex.getMessage(),
 					ErrorCode.NOT_FOUND.getCode());
 
 		} finally {
@@ -108,7 +106,7 @@ public class CarrinhoDAO {
 
 		} catch (RuntimeException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao remover a cidade do banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao remover a carrinho do banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {

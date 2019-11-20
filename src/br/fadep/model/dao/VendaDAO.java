@@ -78,12 +78,12 @@ public class VendaDAO {
 			vendaManaged = em.find(Venda.class, venda.getId());
 			vendaManaged.setCarrinho(venda.getCarrinho());
 			vendaManaged.setCliente(venda.getCliente());
-			vendaManaged.setFormaPagamento(venda.getFormaPagamento());
+			vendaManaged.setFormasPagamento(venda.getFormasPagamento());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Produto informado para atualização não existe: " + ex.getMessage(),
+			throw new DAOException("Venda informado para atualização não existe: " + ex.getMessage(),
 					ErrorCode.NOT_FOUND.getCode());
 
 		} finally {

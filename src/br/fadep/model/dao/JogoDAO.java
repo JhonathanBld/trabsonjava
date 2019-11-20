@@ -6,95 +6,98 @@ import javax.persistence.EntityManager;
 
 import br.fadep.exceptions.DAOException;
 import br.fadep.exceptions.ErrorCode;
-import br.fadep.model.domain.Cidade;
+import br.fadep.model.domain.Jogo;
 
-public class CidadeDAO {
-	
-
-	public List<Cidade> getAll() {
+public class JogoDAO {
+	public List<Jogo> getAll() {
 		EntityManager em = JPAUtil.getEntityManager();
-		List<Cidade> cidades = null;
+		List<Jogo> jogo = null;
 
 		try {
-			cidades = em.createQuery("select c from Cidades c", Cidade.class).getResultList();
+			jogo = em.createQuery("select c from Jogo c", Jogo.class).getResultList();
 		} catch (RuntimeException ex) {
 
-			throw new DAOException("Erro ao recuperar todos as cidades do banco: " + ex.getMessage(),
+			throw new DAOException("Erro ao recuperar todos as jogos do banco: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
 
-		return cidades;
+		return jogo;
 	}
 
-	public Cidade getById(long id) {
+	public Jogo getById(long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Cidade cidade = null;
+		Jogo jogo = null;
 
 		try {
-			cidade = em.find(Cidade.class, id);
+			jogo = em.find(Jogo.class, id);
 		} catch (RuntimeException ex) {
-			throw new DAOException("Erro ao buscar cidade por id no banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao buscar o jogo por id no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 		} finally {
 			em.close();
 		}
 
-		if (cidade == null) {
-			throw new DAOException("Cidade de id " + id + " não existe.", ErrorCode.NOT_FOUND.getCode());
+		if (jogo == null) {
+			throw new DAOException("Jogo de id " + id + " não existe.", ErrorCode.NOT_FOUND.getCode());
 		}
 
-		return cidade;
+		return jogo;
 	}
 
-	public Cidade save(Cidade cidade) {
+	public Jogo save(Jogo jogo) {
 		EntityManager em = JPAUtil.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(cidade);
+			em.persist(jogo);
 			em.getTransaction().commit();
 		} catch (RuntimeException ex) {
 
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao salvar cidade no banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao salvar o jogo no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
-		return cidade;
+		return jogo;
 	}
 
-	public Cidade update(Cidade cidade) {
+	public Jogo update(Jogo jogo) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Cidade cidadeManaged = null;
-		if (cidade.getId() <= 0) {
+		Jogo jogoManaged = null;
+		if (jogo.getId() <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
 		}
 		try {
+
 			em.getTransaction().begin();
-			em.getTransaction().begin();
-			cidadeManaged = em.find(Cidade.class, cidade.getId());
-			cidadeManaged.setEstado(cidade.getEstado());				
-			cidadeManaged.setNome(cidade.getNome());			
+			jogoManaged = em.find(Jogo.class, jogo.getId());
+			jogoManaged.setData(jogo.getData());
+			jogoManaged.setCategorias(jogo.getCategorias());
+			jogoManaged.setDescricao(jogo.getDescricao());
+			jogoManaged.setDesenvolvedora(jogo.getDesenvolvedora());
+			jogoManaged.setNome(jogo.getNome());
+			jogoManaged.setValor(jogo.getValor());
+			jogoManaged.setVersao(jogo.getVersao());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Cidade informada para atualização não existe: " + ex.getMessage(),
+			throw new DAOException("Jogo informado para atualização não existe: " + ex.getMessage(),
 					ErrorCode.NOT_FOUND.getCode());
 
 		} finally {
 			em.close();
 		}
-		return cidadeManaged;
+		return jogoManaged;
 	}
 
-	public Cidade delete(Long id) {
+	public Jogo delete(Long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Cidade cidade = null;
+		Jogo jogo = null;
 
 		if (id <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
@@ -102,20 +105,19 @@ public class CidadeDAO {
 
 		try {
 			em.getTransaction().begin();
-			cidade = em.find(Cidade.class, id);
-			em.remove(cidade);
+			jogo = em.find(Jogo.class, id);
+			em.remove(jogo);
 			em.getTransaction().commit();
 
 		} catch (RuntimeException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao remover a cidade do banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao remover a jogo do banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
 
-		return cidade;
+		return jogo;
 	}
-
 }

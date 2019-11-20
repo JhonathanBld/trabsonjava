@@ -75,7 +75,7 @@ public class ClienteDAO {
 		try {
 			em.getTransaction().begin();
 			clienteManaged = em.find(Cliente.class, cliente.getId());
-			clienteManaged.setDataAniversario(cliente.getDataAniversario());
+			clienteManaged.setDataNascimento(cliente.getDataNascimento());
 			clienteManaged.setCpf(cliente.getCpf());
 			clienteManaged.setCidade(cliente.getCidade());
 			clienteManaged.setNome(cliente.getNome());
