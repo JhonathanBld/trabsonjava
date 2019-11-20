@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 public class Empresa extends Pessoa{
 
 	private String nomeFantasia;
-	private String cnpj;	
-	private Pessoa responsavel;
+	private String cnpj;
 
 	public String getNomeFantasia() {
 		return nomeFantasia;
@@ -24,13 +23,5 @@ public class Empresa extends Pessoa{
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-
-	public Pessoa getResponsavel() {
-		return responsavel;
-	}
-
-	public void setResponsavel(Pessoa responsavel) {
-		this.responsavel = responsavel;
-	}	
 
 }

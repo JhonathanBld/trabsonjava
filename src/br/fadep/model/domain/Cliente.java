@@ -10,7 +10,8 @@ public class Cliente extends Pessoa {
 	private String cpf;
 	private String rg;
 	private String sexo;	
-	private Date dataAniversario;
+	private Date dataNascimento;
+	private Carrinho carrinho;
 
 	public String getCpf() {
 		return cpf;
@@ -36,11 +37,20 @@ public class Cliente extends Pessoa {
 		this.sexo = sexo;
 	}
 
-	public Date getDataAniversario() {
-		return dataAniversario;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDataAniversario(Date dataAniversario) {
-		this.dataAniversario = dataAniversario;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
+
+	public Carrinho getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(Carrinho carrinho) {
+		this.carrinho = carrinho;
+	}
+
 }

@@ -21,8 +21,6 @@ public class Jogo {
 	private String descricao;
 	@OneToOne
 	private Empresa desenvolvedora;
-	@OneToOne
-	private Empresa publicadora;
 	@OneToMany
 	private List<Categoria> categorias;
 	private double valor;
@@ -59,14 +57,6 @@ public class Jogo {
 
 	public void setDesenvolvedora(Empresa desenvolvedora) {
 		this.desenvolvedora = desenvolvedora;
-	}
-
-	public Empresa getPublicadora() {
-		return publicadora;
-	}
-
-	public void setPublicadora(Empresa publicadora) {
-		this.publicadora = publicadora;
 	}
 
 	public List<Categoria> getCategorias() {

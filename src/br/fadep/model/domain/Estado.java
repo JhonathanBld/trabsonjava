@@ -1,5 +1,6 @@
 package br.fadep.model.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +15,17 @@ public class Estado {
 	private Long id;
 	
 	@OneToOne
+	@Column(name="ID_PAIS")
 	private Pais pais;
 	private String nome;
-	private String uf;
+	private String sigla;
 	
-	public String getUf() {
-		return uf;
+	public String getSigla() {
+		return sigla;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public Long getId() {
@@ -34,12 +36,12 @@ public class Estado {
 		this.id = id;
 	}
 	
-	public Pais getPais() {
+	public Pais getIdPais() {
 		return pais;
 	}
 	
-	public void setPais(Pais pais) {
-		this.pais = pais;
+	public void setIdPais(Pais idPais) {
+		this.pais = idPais;
 	}
 	
 	public String getNome() {

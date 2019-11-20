@@ -13,8 +13,8 @@ public class Pais {
 	private Long id;
 	
 	private String nome;
-	
 	private String sigla;
+	private String moeda;
 	
 	public Long getId() {
 		return id;
@@ -47,7 +47,5 @@ public class Pais {
 	public void setMoeda(String moeda) {
 		this.moeda = moeda;
 	}
-
-	private String moeda;
 	
 }
