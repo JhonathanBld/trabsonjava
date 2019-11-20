@@ -14,7 +14,7 @@ public class PaisDAO {
 		List<Pais> paises = null;
 
 		try {
-			paises = em.createQuery("select p from Produto p", Pais.class).getResultList();
+			paises = em.createQuery("select p from Pais p", Pais.class).getResultList();
 		} catch (RuntimeException ex) {
 
 			throw new DAOException("Erro ao recuperar todos os países do banco: " + ex.getMessage(),
@@ -88,7 +88,7 @@ public class PaisDAO {
 			em.close();
 		}
 
-		return produto;
+		return pais;
 	}
 	
 }
