@@ -75,12 +75,12 @@ public class CidadeDAO {
 		}
 		try {
 			em.getTransaction().begin();
+			em.getTransaction().begin();
 			cidadeManaged = em.find(Cidade.class, cidade.getId());
-			cidadeManaged.setNome(cidade.getNome());
-			cidadeManaged.setCodigoIBGE(cidade.getCodigoIBGE());
+			cidadeManaged.setEstado(cidade.getEstado());
+			cidadeManaged.setCodigoIBGE(cidade.getCodigoIBGE());		
 			cidadeManaged.setNome(cidade.getNome());
 			cidadeManaged.setPopulacao(cidade.getPopulacao());
-			cidadeManaged.setUf(cidade.getUf());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {

@@ -1,3 +1,4 @@
+
 package br.fadep.model.dao;
 
 import java.util.List;
@@ -6,16 +7,16 @@ import javax.persistence.EntityManager;
 
 import br.fadep.exceptions.DAOException;
 import br.fadep.exceptions.ErrorCode;
-import br.fadep.model.domain.Produto;
+import br.fadep.model.domain.Venda;
 
-public class ProdutoDAO {
+public class VendaDAO {
 
-	public List<Produto> getAll() {
+	public List<Venda> getAll() {
 		EntityManager em = JPAUtil.getEntityManager();
-		List<Produto> produtos = null;
+		List<Venda> venda = null;
 
 		try {
-			produtos = em.createQuery("select p from Produto p", Produto.class).getResultList();
+			venda = em.createQuery("select p from Venda p", Venda.class).getResultList();
 		} catch (RuntimeException ex) {
 
 			throw new DAOException("Erro ao recuperar todos os produtos do banco: " + ex.getMessage(),
@@ -25,15 +26,15 @@ public class ProdutoDAO {
 			em.close();
 		}
 
-		return produtos;
+		return venda;
 	}
 
-	public Produto getById(long id) {
+	public Venda getById(long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Produto produto = null;
+		Venda produto = null;
 
 		try {
-			produto = em.find(Produto.class, id);
+			produto = em.find(Venda.class, id);
 		} catch (RuntimeException ex) {
 			throw new DAOException("Erro ao buscar produto por id no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
@@ -48,35 +49,36 @@ public class ProdutoDAO {
 		return produto;
 	}
 
-	public Produto save(Produto produto) {
+	public Venda save(Venda venda) {
 		EntityManager em = JPAUtil.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(produto);
+			em.persist(venda);
 			em.getTransaction().commit();
 		} catch (RuntimeException ex) {
 
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao salvar produto no banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao salvar a venda no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
-		return produto;
+		return venda;
 	}
 
-	public Produto update(Produto produto) {
+	public Venda update(Venda venda) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Produto produtoManaged = null;
-		if (produto.getId() <= 0) {
+		Venda vendaManaged = null;
+		if (venda.getId() <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
 		}
 		try {
 			em.getTransaction().begin();
-			produtoManaged = em.find(Produto.class, produto.getId());
-			produtoManaged.setNome(produto.getNome());
-			produtoManaged.setQuantidade(produto.getQuantidade());
+			vendaManaged = em.find(Venda.class, venda.getId());
+			vendaManaged.setCarrinho(venda.getCarrinho());
+			vendaManaged.setCliente(venda.getCliente());
+			vendaManaged.setFormaPagamento(venda.getFormaPagamento());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
@@ -87,21 +89,20 @@ public class ProdutoDAO {
 		} finally {
 			em.close();
 		}
-		return produtoManaged;
+		return vendaManaged;
 	}
 
-	public Produto delete(Long id) {
+	public Venda delete(Long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Produto produto = null;
-
+		Venda venda = null;
 		if (id <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
 		}
 
 		try {
 			em.getTransaction().begin();
-			produto = em.find(Produto.class, id);
-			em.remove(produto);
+			venda = em.find(Venda.class, id);
+			em.remove(venda);
 			em.getTransaction().commit();
 
 		} catch (RuntimeException ex) {
@@ -113,6 +114,7 @@ public class ProdutoDAO {
 			em.close();
 		}
 
-		return produto;
+		return venda;
 	}
+
 }

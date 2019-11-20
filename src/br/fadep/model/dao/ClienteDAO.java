@@ -75,10 +75,13 @@ public class ClienteDAO {
 		try {
 			em.getTransaction().begin();
 			clienteManaged = em.find(Cliente.class, cliente.getId());
-			clienteManaged.setAniversario(cliente.getAniversario());
+			clienteManaged.setDataAniversario(cliente.getDataAniversario());
 			clienteManaged.setCpf(cliente.getCpf());
-			clienteManaged.setEndereco(cliente.getEndereco());
+			clienteManaged.setCidade(cliente.getCidade());
 			clienteManaged.setNome(cliente.getNome());
+			clienteManaged.setContatos(cliente.getContatos());
+			clienteManaged.setRg(cliente.getRg());
+			clienteManaged.setSexo(cliente.getSexo());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
