@@ -29,10 +29,10 @@ public class CarrinhoDAO {
 
 	public Carrinho getById(long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Carrinho cidade = null;
+		Carrinho carrinho = null;
 
 		try {
-			cidade = em.find(Carrinho.class, id);
+			carrinho = em.find(Carrinho.class, id);
 		} catch (RuntimeException ex) {
 			throw new DAOException("Erro ao buscar o carrinho por id no banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
@@ -40,11 +40,11 @@ public class CarrinhoDAO {
 			em.close();
 		}
 
-		if (cidade == null) {
+		if (carrinho == null) {
 			throw new DAOException("Carrinho de id " + id + " não existe.", ErrorCode.NOT_FOUND.getCode());
 		}
 
-		return cidade;
+		return carrinho;
 	}
 
 	public Carrinho save(Carrinho carrinho) {
@@ -67,16 +67,16 @@ public class CarrinhoDAO {
 
 	public Carrinho update(Carrinho carrinho) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Carrinho cidadeManaged = null;
+		Carrinho carrinhoManaged = null;
 		if (carrinho.getId() <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
 		}
 		try {
 
 			em.getTransaction().begin();
-			cidadeManaged = em.find(Carrinho.class, carrinho.getId());
-			cidadeManaged.setData(carrinho.getData());
-			cidadeManaged.setJogos(carrinho.getJogos());
+			carrinhoManaged = em.find(Carrinho.class, carrinho.getId());
+			carrinhoManaged.setData(carrinho.getData());
+			carrinhoManaged.setJogos(carrinho.getJogos());
 			em.getTransaction().commit();
 
 		} catch (NullPointerException ex) {
@@ -87,12 +87,12 @@ public class CarrinhoDAO {
 		} finally {
 			em.close();
 		}
-		return cidadeManaged;
+		return carrinhoManaged;
 	}
 
 	public Carrinho delete(Long id) {
 		EntityManager em = JPAUtil.getEntityManager();
-		Carrinho cidade = null;
+		Carrinho carrinho = null;
 
 		if (id <= 0) {
 			throw new DAOException("O id precisa ser maior do que 0.", ErrorCode.BAD_REQUEST.getCode());
@@ -100,19 +100,19 @@ public class CarrinhoDAO {
 
 		try {
 			em.getTransaction().begin();
-			cidade = em.find(Carrinho.class, id);
-			em.remove(cidade);
+			carrinho = em.find(Carrinho.class, id);
+			em.remove(carrinho);
 			em.getTransaction().commit();
 
 		} catch (RuntimeException ex) {
 			em.getTransaction().rollback();
-			throw new DAOException("Erro ao remover a carrinho do banco de dados: " + ex.getMessage(),
+			throw new DAOException("Erro ao remover o carrinho do banco de dados: " + ex.getMessage(),
 					ErrorCode.SERVER_ERROR.getCode());
 
 		} finally {
 			em.close();
 		}
 
-		return cidade;
+		return carrinho;
 	}
 }

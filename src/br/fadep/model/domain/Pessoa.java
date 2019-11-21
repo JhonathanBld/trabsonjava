@@ -1,12 +1,14 @@
 package br.fadep.model.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -22,6 +24,8 @@ public class Pessoa {
 	private Cidade cidade;	
 	@Column(name="DATA_CADASTRO")
 	private Date dataCadastro;
+	@OneToMany
+	private List<Contato> contatos;
 
 	public Long getId() {
 		return id;
@@ -61,6 +65,14 @@ public class Pessoa {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 }
