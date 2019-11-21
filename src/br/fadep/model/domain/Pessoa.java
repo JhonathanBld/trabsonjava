@@ -22,7 +22,6 @@ public class Pessoa {
 	private String tipo;
 	@OneToOne
 	private Cidade cidade;	
-	@Column(name="DATA_CADASTRO")
 	private Date dataCadastro;
 	@OneToMany
 	private List<Contato> contatos;

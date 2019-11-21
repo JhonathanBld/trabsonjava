@@ -1,6 +1,5 @@
 package br.fadep.model.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,6 @@ public class Estado {
 	private Long id;
 	
 	@OneToOne
-	@Column(name="ID_PAIS")
 	private Pais pais;
 	private String nome;
 	private String sigla;

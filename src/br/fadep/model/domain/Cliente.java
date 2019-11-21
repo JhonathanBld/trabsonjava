@@ -2,7 +2,10 @@ package br.fadep.model.domain;
 
 import java.sql.Date;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente extends Pessoa {
@@ -11,6 +14,7 @@ public class Cliente extends Pessoa {
 	private String rg;
 	private String sexo;	
 	private Date dataNascimento;
+	@OneToOne
 	private Carrinho carrinho;
 
 	public String getCpf() {

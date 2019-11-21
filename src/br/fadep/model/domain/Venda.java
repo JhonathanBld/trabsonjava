@@ -20,7 +20,7 @@ public class Venda {
 	@OneToOne
 	private Carrinho carrinho;
 	@OneToMany
-	@Column(name="FORMA_PAGAMENTO")
+
 	private List<FormaPagamento> formasPagamento;
 	@OneToOne	
 	private Cliente cliente;

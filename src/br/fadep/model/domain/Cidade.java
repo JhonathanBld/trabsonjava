@@ -1,6 +1,5 @@
 package br.fadep.model.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,6 @@ public class Cidade {
 	
 	private String nome;	
 	@OneToOne
-	@Column(name="ID_ESTADO")
 	private Estado estado;
 	
 	public Long getId() {
