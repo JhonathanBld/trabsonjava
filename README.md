@@ -1,2 +1,2 @@
-# trabsonjava
-Projeto 
+# Trabalho  
+Projeto ultilizando RESTS e HIBERNATE
